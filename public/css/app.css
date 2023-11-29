@@ -1144,6 +1144,9 @@ input:checked + .toggle-bg {
 .mb-1 {
   margin-bottom: 0.25rem;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1216,23 +1219,11 @@ input:checked + .toggle-bg {
 .mt-5 {
   margin-top: 1.25rem;
 }
-.mt-8 {
-  margin-top: 2rem;
-}
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-.mt-10 {
-  margin-top: 2.5rem;
-}
 .mt-6 {
   margin-top: 1.5rem;
 }
-.mt-11 {
-  margin-top: 2.75rem;
-}
-.mt-12 {
-  margin-top: 3rem;
+.mt-8 {
+  margin-top: 2rem;
 }
 .block {
   display: block;
@@ -1968,6 +1959,10 @@ input:checked + .toggle-bg {
   --tw-bg-opacity: 1;
   background-color: rgb(30 41 59 / var(--tw-bg-opacity));
 }
+.bg-stone-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 244 / var(--tw-bg-opacity));
+}
 .bg-stone-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(214 211 209 / var(--tw-bg-opacity));
@@ -1997,6 +1992,10 @@ input:checked + .toggle-bg {
 .bg-zinc-300 {
   --tw-bg-opacity: 1;
   background-color: rgb(212 212 216 / var(--tw-bg-opacity));
+}
+.bg-\[\#FF5900\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 89 0 / var(--tw-bg-opacity));
 }
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
