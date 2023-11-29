@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'sharpslab-bold';
+    src: url('/fonts/SharpSlab-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'zillaslap-bold';
+    src: url('/fonts/ZillaSlab-Bold.ttf') format('truetype');
+}

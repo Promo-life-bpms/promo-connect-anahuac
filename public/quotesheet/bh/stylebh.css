@@ -1,0 +1,163 @@
+@page {
+    margin-left: 0cm;
+    margin-right: 0cm;
+    margin-top: 0cm;
+    margin-bottom: 0cm;
+}
+
+@page {
+    counter-increment: pages;
+}
+
+@font-face {
+    font-family: 'Poppins-Light';
+    font-style: normal;
+    font-weight: lighter;
+    src: local('Poppins-Light'), local('Poppins-Light'), url(quotesheet/bh/Poppins-Light.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-Medium';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Poppins-Medium'), local('Poppins-Medium'), url(quotesheet/bh/Poppins-Medium.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Poppins-Bold';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Poppins-Bold'), local('Poppins-Bold'), url(quotesheet/bh/Poppins-Bold.ttf) format('truetype');
+}
+
+body {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 160px;
+    padding-bottom: 100px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 140px;
+    background-image: url(../bh//triangulos.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center right;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 120px;
+    background-image: url(../bh//triangulos1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center left;
+}
+
+.content {
+    padding: 0px 15px;
+}
+
+.head {
+    width: 100%;
+    /* background-color: black; */
+    padding: 10px 15px;
+    font-size: 27px;
+    line-height: 40px;
+    /* color: white; */
+}
+.head td{
+    vertical-align: middle;
+}
+
+.logo {
+    width: 207px;
+    height: 84px;
+}
+
+.company-name {
+    text-align: right;
+    padding: 0px 20px;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.cliente {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 20px;
+}
+
+.head-products {
+    margin-bottom: -65px;
+    background-color: black;
+    width: 100%;
+    height: 42px;
+}
+
+.titulos {
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+
+.titulos th {
+    border-color: #333;
+    padding: 0;
+}
+
+.productos-body td,
+.productos-body th {
+    text-align: center;
+
+}
+
+.total {
+    width: 100%;
+    font-size: 20px;
+}
+
+.firma {
+    padding: 0px 60px;
+    text-align: center;
+}
+
+
+.condiciones {
+    padding: 10px 30px;
+    font-size: 11px;
+}
+
+.condiciones p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+
+.footer {
+    width: 100%;
+    font-size: 25px;
+    /* padding: 20px 15px 0px 15px; */
+    padding-top: 40px;
+}
+
+.pagenum::after {
+    content: counter(page);
+}
+
+.pagetot::after {
+    content: counter(pages);
+}

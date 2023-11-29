@@ -1,0 +1,148 @@
+/* Main Body */
+@page {
+    margin-top: 0cm;
+    margin-bottom: 0cm;
+    margin-left: 0cm;
+    margin-right: 0cm;
+}
+
+@page {
+    counter-increment: pages;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-top: 185px;
+    padding-bottom: 60px;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 108px;
+}
+
+.logo {
+    width: auto;
+    height: 155px;
+    margin-top: -40px;
+}
+
+.content {
+    padding: 0px 20px;
+}
+
+.head {
+    width: 100%;
+    height: 75px;
+    margin-top: -40px;
+}
+
+.company {
+    text-align: left;
+    color: #0e4840;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.company-quote {
+    color: #0e4840;
+    text-align: left;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.cliente {
+    width: 100%;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-bottom: 5px;
+}
+
+
+.head-products {
+    margin-bottom: -65px;
+    background-color: #72C3D6;
+    width: 100%ab;
+    height: 45px;
+    font-weight: lighter;
+    padding: 5px 20px;
+}
+
+
+.titulos {
+    width: 100%;
+    background-color: #72C3D6;
+    color: white;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.titulos th {
+    border-color: #333;
+}
+
+.productos-body {
+    border-collapse: collapse;
+}
+
+.productos-body tbody tr {
+    border-bottom: 2pt solid #0e4840;
+}
+
+.productos-body td,
+.productos-body th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.total {
+    text-align: right;
+    width: 100%;
+}
+
+.condiciones {
+    border: 4px solid #0e4840;
+    margin: 20px;
+    padding: 10px;
+}
+
+.condiciones p {
+    text-transform: uppercase;
+    color: #0e4840;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.responsable {
+    width: 100%;
+    background-color: red;
+
+}
+
+.pagenum::after {
+    content: counter(page);
+}
+
+.pagetot::after {
+    content: counters(pages);
+}

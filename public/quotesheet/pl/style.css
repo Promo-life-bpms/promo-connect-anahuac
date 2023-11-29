@@ -1,0 +1,180 @@
+/* Main Body */
+@page {
+    margin-top: 0cm;
+    margin-bottom: 0cm;
+    margin-left: 0cm;
+    margin-right: 0cm;
+}
+
+body {
+    background: #fff;
+    color: #000;
+    margin: 0cm;
+    font-family: 'Open Sans', sans-serif;
+    /* want to use custom fonts? http://docs.wpovernight.com/woocommerce-pdf-invoices-packing-slips/using-custom-fonts/ */
+    font-size: 9pt;
+    line-height: 100%;
+    /* fixes inherit dompdf bug */
+    padding-top: 180px;
+    padding-bottom: 60px;
+    background-image: url(../pl/FORMATO-COTIZACION-PL.png);
+    background-size: contain;
+}
+
+p {
+    margin: 10px 0;
+    padding: 0;
+}
+
+header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 100px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+}
+
+.url {
+    position: absolute;
+    top: 110%;
+    left: 45%;
+    transform: translate(50%, 50%);
+}
+
+.content {
+    padding: 0px 35px;
+    margin-left: -5;
+    margin-top: 0px;
+}
+
+.head {
+    width: 100%;
+    margin-top: -30px;
+}
+
+.logo {
+    width: auto;
+    height: 90px;
+    margin-top: -50px;
+}
+
+.fondo-head {
+    margin-top: 0px;
+    height: 80px;
+}
+
+.titulo1 {
+    font-weight: bold;
+    font-size: 45px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.titulo2 {
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.company {
+    text-align: left;
+    color: #0e4840;
+    font-size: 25px;
+    font-weight: normal;
+}
+
+.cliente {
+    width: 100%;
+    font-size: 18px;
+    font-weight: lighter;
+    margin-bottom: 5px;
+}
+
+
+.head-products {
+    margin-bottom: -70px;
+    background-color: #1485cc;
+    width: 100%;
+    height: 45px;
+    font-weight: lighter;
+    padding: 0px 10px;
+}
+
+
+.titulos {
+    width: 100%;
+    background-color: #1485cc;
+    color: white;
+    font-size: 12px;
+}
+
+.titulos th {
+    border-color: #333;
+}
+
+.productos-body {
+    border-collapse: collapse;
+}
+
+.productos-body tbody tr {
+    border-bottom: 1pt solid #1485cc;
+}
+
+.productos-body td,
+.productos-body th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.total {
+    text-align: right;
+    width: 100%;
+    font-size: 15px;
+}
+
+.condiciones {
+    border: 1px solid #000;
+    margin: 20px;
+    padding: 10px;
+}
+
+.condiciones p {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.responsable {
+    font-size: 15px;
+}
+
+.responsable img {
+    height: 25px;
+    margin-right: 7px;
+    width: auto;
+    display: flex;
+}
+
+.responsable p {
+    padding: 0;
+    display: flex;
+}
+
+.pagenum::after {
+    content: counter(page);
+}
+
+.pagetot::after {
+    content: counter(pages);
+}
