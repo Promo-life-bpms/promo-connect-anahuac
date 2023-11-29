@@ -56,7 +56,7 @@
         <div class="w-full bg-primary">
             <div class="container mx-auto max-w-7xl py-1">
                 <div class="flex justify-center">
-                    <span class="text-center text-white">LOS MÁS VENDIDOS
+                    <span class="text-center text-white">PRODUCTOS MÁS VENDIDOS
                     </span>
                 </div>
             </div>
@@ -74,7 +74,7 @@
         <div class="w-full bg-white">
             <div class="container mx-auto max-w-7xl py-1">
                 <div class="flex justify-center bg-primary ">
-                    <span class="text-center text-white p-1">CATEGORIAS
+                    <span class="text-center text-white p-1">CATEGORÍAS
                     </span>
                 </div>
             </div>
@@ -99,7 +99,7 @@
         <div class="w-full bg-primary">
             <div class="container mx-auto max-w-7xl py-1">
                 <div class="flex justify-center">
-                    <span class="text-center text-white">MAS PRODUCTOS
+                    <span class="text-center text-white">MÁS PRODUCTOS
                     </span>
                 </div>
             </div>
@@ -119,11 +119,9 @@
                 @endforeach
             </div>
         </div>
-        <div class="container mx-auto max-w-7xl">
-            <div class="relative overflow-hidden h-40 text-center">
-                <img class="h-auto w-full" src="{{ asset('img/_d9b3498b-78d2-4d9e-98a7-993655d16f7c.jfif') }}"
-                    alt="">
-                <p class="absolute top-10 uppercase text-white text-5xl inset-x-8">Premium Brands</p>
+        <div class="container max-w-7xl">
+            <div class="relative overflow-hidden  text-center">
+                <img class="h-auto w-full" src="{{ asset('img/banner-anahuac.png') }}" alt="">
             </div>
         </div>
     </div>
