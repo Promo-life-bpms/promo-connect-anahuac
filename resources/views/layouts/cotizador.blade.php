@@ -25,7 +25,7 @@
     @livewireStyles
 </head>
 
-<body class="h-screen">
+<body class="h-screen" style="margin-top:70px;">
     <div class="h-full flex flex-col justify-between">  
         <div class="w-full bg-white">
             @include('layouts.components.navbar')

@@ -15,7 +15,7 @@
 
 </head>
 
-<body class="h-screen">
+<body class="h-screen" >
     <div class="w-full">
         @yield('content')
     </div>

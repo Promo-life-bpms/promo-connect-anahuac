@@ -1,4 +1,4 @@
-<div class="bg-gray-100" style="margin-top:70px;">
+<div class="bg-gray-100">
     <div class="w-full bg-white">
         <div class="container mx-auto max-w-7xl py-2">
             <div class="grid grid-cols-1 sm:grid-cols-8 text-slate-700 " wire:target="changeCategory">
