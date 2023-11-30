@@ -382,11 +382,11 @@
         <div class="flex">
             <div class="w-2/3 mx-5">
                 <div class="flex items-center justify-between ">
-                    <p class="text-white mt-5 font-bold">CATÁLOGO</p>
-                    <p class="text-white mt-5 font-bold">MEJORES DESCUENTOS</p>
-                    <p class="text-white mt-5 font-bold">RECIÉN LLEGADO</p>
-                    <p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p>
-                    <p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p>
+                    <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">CATÁLOGO </p></a>
+                    <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">MEJORES DESCUENTOS</p></a>
+                    <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">RECIÉN LLEGADO</p></a>
+                    <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p></a>
+                    <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p></a>
                 </div>
             </div>
             <div class="w-1/3">

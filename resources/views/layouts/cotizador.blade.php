@@ -96,7 +96,7 @@
                     </script>
                     <img src="{{asset('img/anahuac.png') }}" alt="logo" style="height:60px;" class="ml-4 mr-8">
                     <p class="ml-4 mr-8 mt-2">Politicas de privacidad / Garantía PromoLife</p>
-                    <p class="text-black ml-4 mr-8 mt-8 ">© Copyright 2022 Promo Life ®</p>
+                    <p class="text-black ml-4 mr-8 mt-8 ">© Copyright 2023 Promo Life ®</p>
                     <div class="flex ml-4 mr-4 mt-4">
                         <p  class="text-black mr-2">Formas de pago</p> 
                         <img src="{{asset('img/pago1.png') }}" alt="tarjeta1" style="width: 30px; height:20px;" class="mt-2 ml-1">

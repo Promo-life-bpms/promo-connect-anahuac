@@ -53,7 +53,7 @@
         </button>
     </div>
     <div class="container mx-auto max-w-7xl">
-        <div class="w-full bg-primary">
+        <div class="w-full bg-gray-800">
             <div class="container mx-auto max-w-7xl py-1">
                 <div class="flex justify-center">
                     <span class="text-center text-white">PRODUCTOS MÁS VENDIDOS
@@ -62,27 +62,57 @@
             </div>
         </div>
         <div class="container mx-auto max-w-7xl py-8 bg-white">
-                <div class="flex flex-wrap justify-between">
-                    @foreach ($latestProducts as $product)
-                        <a href="{{ route('show.product', ['product' => $product->id]) }}" class="max-h-40 w-auto text-center">
-                            <img src="{{ isset( $product->firstImage->image_url)? $product->firstImage->image_url: asset('/img/default.jpg') }}" alt="" srcset=""
-                                class="max-h-40 w-auto ">
-                        </a>
-                    @endforeach
-                 </div>
+            <div class="flex flex-wrap justify-between">
+                @foreach ($latestProducts as $product)
+                    <a href="{{ route('show.product', ['product' => $product->id]) }}" class="max-h-40 w-auto text-center">
+                        <img src="{{ isset( $product->firstImage->image_url)? $product->firstImage->image_url: asset('/img/default.jpg') }}" alt="" srcset=""
+                            class="max-h-40 w-auto ">
+                    </a>
+                @endforeach
+            </div>
         </div>
-        <div class="w-full bg-white">
+        <div class="w-full bg-gray-800">
             <div class="container mx-auto max-w-7xl py-1">
-                <div class="flex justify-center bg-primary ">
+                <div class="flex justify-center bg-gray-800">
                     <span class="text-center text-white p-1">CATEGORÍAS
                     </span>
                 </div>
             </div>
         </div>
-        <div class="container mx-auto max-w-7xl py-8">
+        <div class="container mx-auto max-w-7xl py-8 px-4">
             <div class="flex flex-wrap justify-between">
 
-                @foreach ($latestCategorias as $cat)
+                <a href="{{ route('categoryfilter', ['category' => 5]) }}" class="transition-transform transform hover:scale-105">
+                    <div class="w-40 h-40 bg-white shadow-lg ">
+                        <img src="{{ asset('img/textiles.png')}}" alt="Imagen" class="w-full h-full object-cover rounded-md">
+                    </div>
+                </a>
+                
+                <a href="{{ route('categoryfilter', ['category' => 4]) }}" class="transition-transform transform hover:scale-105">
+                    <div class="w-40 h-40 bg-white shadow-lg ">
+                        <img src="{{ asset('img/personal.png')}}" alt="Imagen" class="w-full h-full object-cover rounded-md">
+                    </div>
+                </a>
+                
+                <a href="{{ route('categoryfilter', ['category' => 9]) }}" class="transition-transform transform hover:scale-105">
+                    <div class="w-40 h-40 bg-white shadow-lg ">
+                        <img src="{{ asset('img/oficina.png')}}" alt="Imagen" class="w-full h-full object-cover rounded-md">
+                    </div>
+                </a>
+                
+                <a href="{{ route('categoryfilter', ['category' => 2]) }}" class="transition-transform transform hover:scale-105">
+                    <div class="w-40 h-40 bg-white shadow-lg ">
+                        <img src="{{ asset('img/bebidas.png')}}" alt="Imagen" class="w-full h-full object-cover rounded-md">
+                    </div>
+                </a>
+                
+                <a href="{{ route('categoryfilter', ['category' => 8]) }}" class="transition-transform transform hover:scale-105">
+                    <div class="w-40 h-40 bg-white shadow-lg ">
+                        <img src="{{ asset('img/banners.png')}}" alt="Imagen" class="w-full h-full object-cover rounded-md">
+                    </div>
+                </a>
+
+               {{--  @foreach ($latestCategorias as $cat)
                     <div>
                         <div
                             class="border border-primary  bg-slate-50 hover:bg-slate-100 transition-colors rounded-full shadow-lg w-40 h-40 flex justify-center items-center text-center cursor-pointer">
@@ -92,11 +122,11 @@
                             </a>
                         </div>
                     </div>
-                @endforeach
+                @endforeach --}}
 
             </div>
         </div>
-        <div class="w-full bg-primary">
+        <div class="w-full bg-gray-800">
             <div class="container mx-auto max-w-7xl py-1">
                 <div class="flex justify-center">
                     <span class="text-center text-white">MÁS PRODUCTOS
@@ -104,7 +134,7 @@
                 </div>
             </div>
         </div>
-        <div class="container mx-auto max-w-7xl pqy-8">
+        <div class="container mx-auto max-w-7xl py-8 ">
             <div class="flex flex-wrap justify-between">
                 @foreach ($moreProducts as $product)
                     @if ($product->firstImage)
