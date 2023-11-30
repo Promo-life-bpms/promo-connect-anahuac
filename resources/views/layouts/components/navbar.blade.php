@@ -1,6 +1,7 @@
 <div  class="fixed top-0 left-0 right-0 z-50">
-    <nav class="w-full flex justify-between py-2 px-12 items-center flex-wrap md:flex-nowrap px-3 md:py-1 bg-stone-100" >
-        <div class="w-2/12">
+    
+    <nav class="w-full flex justify-between py-2 px-12 items-center flex-wrap md:flex-nowrap px-3 md:py-1 bg-white" >
+        <div class="w-3/12">
             <a href="{{ route('index') }}">
                 <img src="{{asset('img/logo-anahuac.png')}}"
                     style="object-fit: cover;"
@@ -49,25 +50,91 @@
         </div>
 
 
-        <div class="w-8/12">
-            <div class="flex justify-end pr-10 ">
+        <div class="w-5/12">
+            <div class="flex justify-center pr-10 ">
 
+                @if (!request()->is('administrador/*', 'administrador'))
+
+                    @role(['buyers-manager', 'buyer'])
+                        <div class="w-full">
+                            @livewire('searching-component')
+                        </div>
+
+                    @endrole
+                @endif
+                
+            </div>
+        </div>
+
+       
+
+        <div class="w-5/12">
+            <div class="flex justify-around">
                 <div>
-                    @if (!request()->is('administrador/*', 'administrador'))
-                        @role(['buyers-manager', 'buyer'])
-                            <div class="w-3/12 sm:w-5/12">
-                                @livewire('searching-component')
+                    @if (auth()->user())
+                        <div class="text-black mt-6">
+                            <div class="flex">
+                                <button id="dropdownHoverButton" data-dropdown-toggle="dropdown"
+                                    class="text-primary hover:text-primary focus:ring-4 focus:outline-none p-1 font-medium focus:rounded text-lg text-center inline-flex items-center"
+                                    type="button">
+                                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#FF5900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+                                    <p class="ml-2 text-lg text-orange-500 font-semibold">{{ strtoupper(auth()->user()->name) }}</p>
+
+                                </button>
+                                
                             </div>
-                        @endrole
+                            
+                        </div>
                     @endif
                 </div>
+                <div>
+                    <p class="mt-8 text-lg text-orange-500 font-semibold">MIS COMPRAS</p>
+                    
+                </div>
+                <div class="flex">
+                    @role(['buyers-manager', 'buyer'])
+                        <a class="text-primary hover:text-primary mt-6" href="{{ route('catalogo') }}">
+                            <div class="mt-1">
+                                <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 
-            <div>
+                                    <defs>
+                                    
+                                    <style>.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.91px;}</style>
+                                    
+                                    </defs>
+                                    
+                                    <g id="handbag">
+                                    
+                                    <path class="cls-1" d="M3.41,7.23H20.59a0,0,0,0,1,0,0v12a3.23,3.23,0,0,1-3.23,3.23H6.64a3.23,3.23,0,0,1-3.23-3.23v-12A0,0,0,0,1,3.41,7.23Z"/>
+                                    
+                                    <path class="cls-1" d="M8.18,10.09V5.32A3.82,3.82,0,0,1,12,1.5h0a3.82,3.82,0,0,1,3.82,3.82v4.77"/>
+                                    
+                                    </g>
+                                    
+                                    </svg>
+                            </div>
+                        </a>
+                        <div class=" mt-3" style="width: 2rem">
+                            @livewire('count-cart-quote')
+                        </div>
+                    @endrole
+                    @role('seller')
+                        <div class=" mt-8  ml-2" style="width: 2rem">
+                            @livewire('count-messages-support')
+                        </div>
+                    @endrole
+                </div>
+            </div>
+            
+            
             <div class="flex items-start justify-end">
 
                 <div class="flex justify-between sm:justify-end gap-5 font-semibold text-md items-center mt-3 sm:mt-0">
 
-                    @role('seller')
+                   {{--  @role('seller')
                         <ul class="flex ">
                             <li>
                                 <a href="{{ route('seller.content') }}"
@@ -85,10 +152,10 @@
                                 <a href="{{ route('seller.muestras') }}"
                                     class="block px-4 py-2 text-white hover:text-primary-superlight text-lg">Muestras</a>
                             </li>
-                           
+                        
 
                         </ul>
-                    @endrole
+                    @endrole --}}
 
                     <div class="relative inline-flex w-fit">
 
@@ -107,7 +174,7 @@
                                 @if (auth()->user()->unreadNotifications->count() > 0)
                                     <div
                                         class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -right-2 dark:border-gray-900">
-                                        {{ auth()->user()->unreadNotifications->count() }}
+                                        {{ auth()->user()->unreadNotifications->count() }} 
                                     </div>
                                 @endif -->
 
@@ -269,66 +336,61 @@
                                 </li>
                             @endrole
 
+                            @role('seller')
+                            
+                            <li>
+                                <a href="{{ route('seller.content') }}"
+                                class="w-full text-left text-base block px-4 py-2 text-white hover:text-[#0F0E24] hover:bg-white">Banners</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('seller.compradores') }}"
+                                class="w-full text-left text-base block px-4 py-2 text-white hover:text-[#0F0E24] hover:bg-white">Compradores</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('seller.pedidos') }}"
+                                class="w-full text-left text-base block px-4 py-2 text-white hover:text-[#0F0E24] hover:bg-white">Compras</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('seller.muestras') }}"
+                                class="w-full text-left text-base block px-4 py-2 text-white hover:text-[#0F0E24] hover:bg-white">Muestras</a>
+                            </li>
+                            
+                            @endrole
+
                             <li>
                                 <button data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                                    class="w-full text-left text-base block px-4 py-2 text-white hover:text-white hover:bg-primary-dark">Cerrar
+                                    class="w-full text-left text-base block px-4 py-2 text-white hover:text-[#0F0E24] hover:bg-white">Cerrar
                                     Sesion</button>
                             </li>
+                            
 
                         </ul>
                     </div>
                 </div>
 
-                <button id="dropdownHoverButton" data-dropdown-toggle="dropdown"
-                    class="text-primary hover:text-primary focus:ring-4 focus:outline-none p-1 font-medium focus:rounded text-lg text-center inline-flex items-center"
-                    type="button">
-                    <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="6" r="4"  stroke-width="2"fill="#FF5900" />
-                        <ellipse cx="12" cy="17" rx="7" ry="4" stroke-width="2" fill="#FF5900"/>
-                    </svg>
-
-                </button>
                 
-                @role(['buyers-manager', 'buyer'])
-                    <a class="text-primary hover:text-primary" href="{{ route('catalogo') }}">
-                        <div class="mt-1">
-                            <svg width="25px" height="25px" viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25013 6.01489C8.25003 6.00994 8.24998 6.00498 8.24998 6V5C8.24998 2.92893 9.92892 1.25 12 1.25C14.0711 1.25 15.75 2.92893 15.75 5 V6C15.75 6.00498 15.7499 6.00994 15.7498 6.01489C17.0371 6.05353 17.8248 6.1924 18.4261 6.69147C19.2593 7.38295 19.4787 8.55339 19.9177 10.8943L20.6677 14.8943C21.2849 18.186 21.5934 19.8318 20.6937 20.9159C19.794 22 18.1195 22 14.7704 22H9.22954C5.88048 22 4.20595 22 3.30624 20.9159C2.40652 19.8318 2.71512 18.186 3.33231 14.8943L4.08231 10.8943C4.52122 8.55339 4.74068 7.38295 5.57386 6.69147C6.17521 6.1924 6.96287 6.05353 8.25013 6.01489ZM9.74998 5C9.74998 3.75736 10.7573 2.75 12 2.75C13.2426 2.75 14.25 3.75736 14.25 5 V6C14.25 5.99999 14.25 6.00001 14.25 6C14.1747 5.99998 14.0982 6 14.0204 6H9.97954C9.90176 6 9.82525 6 9.74998 6.00002C9.74998 6.00002 9.74998 6.00003 9.74998 6.00002V5" fill="#FF5900"/>
-                            </svg>
-                        </div>
-                    </a>
-                    <div class=" mt-3" style="width: 2rem">
-                        @livewire('count-cart-quote')
-                    </div>
-                @endrole
-                @role('seller')
-                    <div class=" mt-2 ml-2" style="width: 2rem">
-                        @livewire('count-messages-support')
-                    </div>
-                @endrole
-
-                </div>
-            </div>
-
+            
+                
 
             </div>
+            
         </div>
        
     </nav>
 
-    <div class="w-full bg-[#FF5900] h-16">
+    <div class="w-full bg-[#FF5900] h-16 ">
         <div class="flex">
-            <div class="w-3/4 ">
+            <div class="w-2/3 mx-5">
                 <div class="flex items-center justify-between ">
-                    <p class="text-white">CATÁLOGO</p>
-                    <p class="text-white">MEJORES DESCUENTOS</p>
-                    <p class="text-white">RECIÉN LLEGADO</p>
-                    <p class="text-white">MEJOR CALIFICADO</p>
-                    <p class="text-white">MEJOR CALIFICADO</p>
+                    <p class="text-white mt-5 font-bold">CATÁLOGO</p>
+                    <p class="text-white mt-5 font-bold">MEJORES DESCUENTOS</p>
+                    <p class="text-white mt-5 font-bold">RECIÉN LLEGADO</p>
+                    <p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p>
+                    <p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p>
                 </div>
             </div>
-            <div class="w-1/4">
-            
+            <div class="w-1/3">
+                <p class="text-white font-bold text-right mt-5 mr-8">COMPRA <b class="text-black">$1,500</b> Y OBTÉN EL ENVÍO GRATIS</p>
             </div>
         </div>
     </div>

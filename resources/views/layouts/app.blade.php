@@ -7,8 +7,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico')}}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Anahuac</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

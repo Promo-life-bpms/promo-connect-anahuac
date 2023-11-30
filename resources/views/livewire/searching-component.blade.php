@@ -1,6 +1,6 @@
-<div class="relative text-gray-600 focus-within:text-gray-400 md:w-4/5" style="width:200px;">
+<div class="relative text-gray-600 focus-within:text-gray-400" >
     <input type="search" wire:model="search" wire:keydown.enter="buscar"
-        class="border-2 border-gray-400 py-2 text-sm bg-white rounded-full pr-10 pl-4 focus:outline-none focus:bg-white focus:text-gray-900 w-full"
+        class="border-2 border-orange-500 py-2 text-sm bg-white rounded pr-10 pl-4 focus:outline-none focus:bg-white focus:text-orange-600 w-full"
         placeholder="Buscar" autocomplete="off">
     <span class="absolute inset-y-0 right-0 flex items-center pr-2">
         <button type="button" class="p-1 focus:outline-none focus:shadow-outline" wire:click="buscar">
