@@ -204,10 +204,10 @@
 
                                     <div class="flex">
                                         <div class="flex-1 w-50 bg-stone-300 p-2 mr-2 cursor-pointer" id="logo1">
-                                            <img src="{{asset('img/logo-white.png')}}" alt="logo" class="w-30" id="">
+                                            <img src="{{asset('img/anahuac-logo.png')}}" alt="logo" class="w-30" id="">
                                         </div>
                                         <div class="flex-1 w-50 bg-stone-300 p-2 cursor-pointer" id="logo2">
-                                            <img src="{{asset('img/logo-color.png')}}" alt="logo" class="w-30">
+                                            <img src="{{asset('img/anahuac-logo2.png')}}" alt="logo" class="w-30">
                                         </div>
                                     </div>
                                     
@@ -382,8 +382,8 @@
        /*  Obtener de path de imagenes */
         var imageURL = "{{ $product->images != '[]'?  $product->images[0]->image_url : '' }}";
         var productID = "{{ $product->id }}";
-        var logo1 = "{{asset('img/logo-white.png')}}";
-        var logo2 = "{{asset('img/logo-color.png')}}";
+        var logo1 = "{{asset('img/anahuac-logo.png')}}";
+        var logo2 = "{{asset('img/anahuac-logo2.png')}}";
         if(imageURL.startsWith("https://catalogodeproductos.promolife.lat/")){
             imageURL = imageURL.slice(41);
         }

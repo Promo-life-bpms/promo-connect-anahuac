@@ -17,69 +17,72 @@
         </div>
     </div>
 
-    <div id="accordion-collapse" data-accordion="collapse" wire:ignore>
-        <h2 id="accordion-collapse-heading-3">
-            <button type="button" class="w-full bg-slate-700 text-white justify-center flex py-1"
-                data-accordion-target="#accordion-collapse-body-3" aria-expanded="false"
-                aria-controls="accordion-collapse-body-3">
-                <span>FILTRO DE BUSQUEDA</span>
-                <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </h2>
-        <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
-            <div class="w-full bg-white">
-                <div class="container mx-auto max-w-7xl p-2">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-slate-700 gap-2">
-                        <div class="flex gap-1 items-center">
-                            <label for="name" class="text-slate-400 w-1/3">Nombre:</label>
-                            <input wire:model='nombre' type="text"
-                                class="py-1 px-2 border border-slate-700 rounded w-full" name="search" id="search"
-                                placeholder="Nombre">
-                        </div>
-                        <div class="flex gap-1 items-center">
-                            <label for="color" class="text-slate-400 w-1/3">Color:</label>
-                            <input wire:model='color' type="text"
-                                class="py-1 px-2 border border-slate-700 rounded w-full" name="color" id="color"
-                                placeholder="Color">
-                        </div>
-                        <div class="flex gap-1 items-center">
-                            <label for="piezas" class="text-slate-400 w-1/3">Piezas:</label>
+
+    <div class="container mx-auto max-w-6xl px-2">
+        <div class="flex justify-center items-center mt-8 mb-8">
+            <img src="{{ asset('img/catalogo.png')}}" alt="catalogo" style="width:30%;">
+        </div>
+        <div id="accordion-collapse" data-accordion="collapse" wire:ignore>
+            <h2 id="accordion-collapse-heading-3">
+                <button type="button" class="w-full bg-primary text-white justify-center flex py-1"
+                    data-accordion-target="#accordion-collapse-body-3" aria-expanded="false"
+                    aria-controls="accordion-collapse-body-3">
+                    <span>FILTRO DE BUSQUEDA</span>
+                    <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </h2>
+
+            <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+                <div class="w-full bg-white">
+                    <div class="container mx-auto max-w-7xl p-2">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-slate-700 gap-2">
                             <div class="flex gap-1 items-center">
-                                <input wire:model='stockMin' type="number"
-                                    class="py-1 px-2 border border-slate-700 rounded w-1/2" name="piezas"
-                                    id="piezas" placeholder="Max">
-                                <input wire:model='stockMax' type="number"
-                                    class="py-1 px-2 border border-slate-700 rounded w-1/2" name="piezas1"
-                                    id="piezas1" placeholder="Min">
+                                <label for="name" class="text-slate-400 w-1/3">Nombre:</label>
+                                <input wire:model='nombre' type="text"
+                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="search" id="search"
+                                    placeholder="Nombre">
                             </div>
-                        </div>
-                        <div class="flex gap-1 items-center">
-                            <label for="precio" class="text-slate-400 w-1/3">Precio:</label>
                             <div class="flex gap-1 items-center">
-                                <input wire:model='precioMin' type="number"
-                                    class="py-1 px-2 border border-slate-700 rounded w-1/2" name="precio1"
-                                    id="precio1" placeholder="Max">
-                                <input wire:model='precioMax' type="number"
-                                    class="py-1 px-2 border border-slate-700 rounded w-1/2" name="precio"
-                                    id="precio" placeholder="Min">
+                                <label for="color" class="text-slate-400 w-1/3">Color:</label>
+                                <input wire:model='color' type="text"
+                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="color" id="color"
+                                    placeholder="Color">
+                            </div>
+                            <div class="flex gap-1 items-center">
+                                <label for="piezas" class="text-slate-400 w-1/3">Piezas:</label>
+                                <div class="flex gap-1 items-center">
+                                    <input wire:model='stockMin' type="number"
+                                        class="py-1 px-2 border border-slate-700 rounded w-1/2" name="piezas"
+                                        id="piezas" placeholder="Max">
+                                    <input wire:model='stockMax' type="number"
+                                        class="py-1 px-2 border border-slate-700 rounded w-1/2" name="piezas1"
+                                        id="piezas1" placeholder="Min">
+                                </div>
+                            </div>
+                            <div class="flex gap-1 items-center">
+                                <label for="precio" class="text-slate-400 w-1/3">Precio:</label>
+                                <div class="flex gap-1 items-center">
+                                    <input wire:model='precioMin' type="number"
+                                        class="py-1 px-2 border border-slate-700 rounded w-1/2" name="precio1"
+                                        id="precio1" placeholder="Max">
+                                    <input wire:model='precioMax' type="number"
+                                        class="py-1 px-2 border border-slate-700 rounded w-1/2" name="precio"
+                                        id="precio" placeholder="Min">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-
-    <div class="container mx-auto max-w-6xl px-2">
-        <div class="text-center text-4xl font-semibold text-slate-700 py-8">CATALOGO DE PRODUCTOS</div>
-        <div class="relative" wire:loading.class="opacity-40">
+        <div class="relative mt-8" wire:loading.class="opacity-40">
             <div class="absolute top-5 w-full">
                 <div wire:loading.flex class="justify-center">
                     <div class="sk-chase">

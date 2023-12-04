@@ -64,9 +64,9 @@
         <div class="container mx-auto max-w-7xl py-8 bg-white">
             <div class="flex flex-wrap justify-between">
                 @foreach ($latestProducts as $product)
-                    <a href="{{ route('show.product', ['product' => $product->id]) }}" class="max-h-40 w-auto text-center">
+                    <a href="{{ route('show.product', ['product' => $product->id]) }}" class="max-h-40 w-auto text-center overflow-hidden" style="border: solid 2px orange !important;">
                         <img src="{{ isset( $product->firstImage->image_url)? $product->firstImage->image_url: asset('/img/default.jpg') }}" alt="" srcset=""
-                            class="max-h-40 w-auto ">
+                            class="max-h-40 w-auto overflow-hidden ">
                     </a>
                 @endforeach
             </div>
@@ -138,8 +138,8 @@
             <div class="flex flex-wrap justify-between">
                 @foreach ($moreProducts as $product)
                     @if ($product->firstImage)
-                        <a href="{{ route('show.product', ['product' => $product->id]) }}"
-                            class="max-h-40 w-auto text-center">
+                        <a href="{{ route('show.product', ['product' => $product->id]) }}" 
+                            class="max-h-40 w-auto text-center overflow-hidden" style="border: solid 2px orange !important;">
                             <img src="{{ $product->firstImage->image_url }}" alt="" srcset=""
                                 class="h-40 w-40 ">
                         </a>

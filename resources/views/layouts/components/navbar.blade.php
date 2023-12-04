@@ -91,7 +91,7 @@
                     @endif
                 </div>
                 <div>
-                    <p class="mt-8 text-lg text-orange-500 font-semibold">MIS COMPRAS</p>
+                    <p class="mt-8 text-lg text-orange-500 font-semibold"><a href="{{ route('compras') }}">MIS COMPRAS</a></p>
                     
                 </div>
                 <div class="flex">
