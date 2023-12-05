@@ -53,7 +53,7 @@
                         <div class="flex flex-col items-end space-y-2">
 
                             @php
-                                $precioTotal = round(($quote->costo_total / ((100 - config('settings.utility_aditional')) / 100)) * 1.16, 2);
+                                $precioTotal = round(($quote->precio_total / ((100 - config('settings.utility_aditional')) / 100)) * 1.16, 2);
                             @endphp
                             <p class="font-bold text-lg">$ {{ number_format($precioTotal, 2, '.', ',') }}</p>
                             <button type="button" onclick='eliminar({{ $quote->id }})'
@@ -102,19 +102,36 @@
                     <hr class="border-black"> --}}
                     <div class="flex justify-between">
                         <p>Total:</p>
-                        @php
-                            $total = round(($totalQuote / ((100 - config('settings.utility_aditional')) / 100)) * 1.16, 2);
-                        @endphp
-                        <p class="font-bold">$ {{ number_format($total, 2, '.', ',') }}</p>
+                        <p class="font-bold">$ {{ number_format($totalQuote, 2, '.', ',') }}</p>
                     </div>
                     <hr class="border-black">
-                    <form action="{{ route('enviar-compra') }}" method="POST" class="col-start-2 col-span-4">
-                        @method('POST')
+                    <!-- <a href="{{ route('finalizar') }}" 
+                        class="block w-full bg-[#000000] hover:bg-[#3D3D3D] text-white text-center rounded-sm font-semibold py-2 px-4">
+                        Continuar con la compra
+                    </a> -->
+
+                    
+                    <form wire:submit.prevent="generarPDF">
                         @csrf
-                        <button type="submit"
-                            class="block w-full bg-primary hover:bg-primary-dark text-white text-center rounded-sm font-semibold py-2 px-4">
-                            Enviar Carrito
-                        </button>
+                        @if(count($cotizacionActual) > 0)
+                            <button type="submit" class="w-full bg-orange-500 p-2 rounded text-center text-white" target="_blank" id="pdfButton" style="z-index:5;">
+                                <div class="flex">
+                                    <div class="flex-initial w-8">
+                                        <img src="{{ asset('/img/svg_pdf_white.svg')}}" alt="descargar pdf" style="width:24px; height:24px;">
+                                    </div>
+                                    <div class="flex-initial">
+                                        <span id="buttonText">GENERAR COTIZACIÓN</span>
+                                    </div>
+                                </div>
+                            </button>
+                            @if($pdfDescargado)
+
+                            @endif
+                            <div class="flex">
+                            <iframe id="info" style="margin-left:-24px;margin-top:-24px; z-index:-1; display:none;" src="https://giphy.com/embed/3oEjI6SIIHBdRxXI40" width="100" height="100" frameBorder="0" class="giphy-embed" ></iframe>
+                            <p id="info-text" style="margin-left:-20px; display:none;"  >Generando cotizacion, por favor espere</p>
+                            </div>
+                        @endif
                     </form>
                 </div>
             </div>

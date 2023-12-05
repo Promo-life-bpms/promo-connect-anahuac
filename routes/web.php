@@ -3,6 +3,7 @@
 use App\Events\ChatEvent;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CotizacionController;
 use App\Http\Controllers\CotizadorController;
 use App\Http\Controllers\ImageProxyController;
 use App\Http\Controllers\SellerController;
@@ -33,6 +34,7 @@ Route::post('/broadcasting/auth', function () {
 
 Route::get('/load-external-image', [ImageProxyController::class, 'loadExternalImage']);
 Route::post('/temporal-image', [TemporalImageUrlController::class, 'saveImage']);
+Route::get('/example-pdf', [CotizacionController::class, 'examplePDF']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [CotizadorController::class, 'index'])->name('index');
@@ -43,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/mis-muestras', [CotizadorController::class, 'muestras'])->name('muestras');
     Route::get('/carrito', [CotizadorController::class, 'cotizacion'])->name('cotizacion');
     Route::get('/carrito/muestra/{id}', [CotizadorController::class, 'procesoMuestra'])->name('procesoMuestra');
+
+    Route::get('/mis-cotizaciones', [CotizadorController::class, 'misCotizaciones'])->name('misCotizaciones');
+
 
     Route::get('/compra/{quote}', [CotizadorController::class, 'verCotizacion'])->name('verCotizacion');
     Route::get('/finalizar-compra', [CotizadorController::class, 'finalizar'])->name('finalizar');
@@ -83,5 +88,7 @@ Route::middleware(['auth'])->group(function () {
         Route::view('muestras', 'livewire.companies.index')->middleware('auth');
         Route::get('/settings', [CotizadorController::class, 'settings'])->name('settings');
     });
-
+    
+    Route::post('/generar-cotizacion', [CotizacionController::class, 'generarPDF'])->name('generarPDF');
+    Route::post('/descargar-cotizacion', [CotizacionController::class, 'downloadPDF'])->name('downloadPDF');
 });

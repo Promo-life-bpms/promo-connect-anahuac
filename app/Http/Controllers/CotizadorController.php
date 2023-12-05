@@ -38,48 +38,21 @@ class CotizadorController extends Controller
     public function index()
     {
         $valores = [];
-        for ($x = 0; $x < 100; $x++) {
+        for ($x = 0; $x < 6; $x++) {
             $num_aleatorio = rand(1, 14000);
             array_push($valores, $num_aleatorio);
-        }
-
-        $valores2 = [];
-        for ($x = 0; $x < 100; $x++) {
-            $num_aleatorio = rand(1, 14000);
-            array_push($valores2, $num_aleatorio);
         }
 
         // Obtener los banner visibles, del primero al último
         $banners = Banner::where('visible', true)->orderBy('created_at', 'desc')->get();
 
-        $getLatestProducts = Product::whereIn('id', $valores2)->get();
+        $latestProducts = Product::limit(6)->get();
         $latestCategorias = Category::withCount('productCategories')
             ->orderBy('product_categories_count', 'DESC')
             ->where('family', 'not like', '%textil%')
             ->limit(6)
             ->get();
-        $getmoreProducts = Product::whereIn('id', $valores)->get();
-
-        $moreProducts = [];
-        $latestProducts = [];
-        $validColorIds = [2, 3, 12, 13, 41, 44, 48, 53, 54, 58, 60, 62, 63, 68, 69, 70, 78, 81];
-
-        foreach ($getmoreProducts as  $getmoreProduct) {
-            if (isset($getmoreProduct->color->id)) {
-                if (in_array($getmoreProduct->color->id, $validColorIds) && count($moreProducts) < 6) {
-                    array_push($moreProducts, $getmoreProduct);
-                }
-            }
-        }
-
-        foreach ($getLatestProducts as  $getmoreProduct2) {
-            if (isset($getmoreProduct2->color->id)) {
-                if (in_array($getmoreProduct2->color->id, $validColorIds) && count($latestProducts) < 6) {
-                    array_push($latestProducts, $getmoreProduct2);
-                }
-            }
-        }
-
+        $moreProducts = Product::whereIn('id', $valores)->get();
         return view('home', compact('latestProducts', 'latestCategorias', 'moreProducts', 'banners'));
     }
 
@@ -276,34 +249,61 @@ class CotizadorController extends Controller
 
     public function enviarCompra(Request $request)
     {
+        $request->validate(['direccionSeleccionada' => 'required']);
+
         if (Auth::user()->hasRole('seller')) {
             return 'No tienes permisos para realizar esta acción';
         }
 
         $currentSale = auth()->user()->currentQuote;
 
-        $quote = [
+        $quote = auth()->user()->quotes()->create([
             'iva_by_item' => 1,
             'address_id' => $request->direccionSeleccionada,
             'show_total' => 1,
             'logo' => '',
-            'status' => 0,
-            'quote_info' => [
-                'name' => "Cliente",
-                'company' => "Company",
-                'email' => "email",
-                'landline' => 00001,
-                'cell_phone' => 00001,
-                'oportunity' => "Oportunidad",
-                'rank' => 1,
-                'department' => "Departamento",
-                'information' => "Info",
-                'tax_fee' => 0,
-                'shelf_life' =>  10,
-            ],
-            "quoteProducts" => [],
+            'status' => 0
+        ]);
+
+        // Guardar la Info de la cotizacion
+        $quoteInfo = QuoteInformation::create([
+            'name' => "Cliente",
+            'company' => "Company",
+            'email' => "email",
+            'landline' => 00001,
+            'cell_phone' => 00001,
+            'oportunity' => "Oportunidad",
+            'rank' => 1,
+            'department' => "Departamento",
+            'information' => "Info",
+            'tax_fee' => 0,
+            'shelf_life' =>  10,
+        ]);
+
+        // Guardar descuento
+        $type = 'Fijo';
+        $value = 0;
+        $discount = false;
+        if (auth()->user()->currentQuote->discount) {
+            $discount = true;
+            $type = auth()->user()->currentQuote->type;
+            $value = auth()->user()->currentQuote->value;
+        }
+
+        $dataDiscount = [
+            'discount' => $discount,
+            'type' => $type,
+            'value' => $value,
         ];
 
+        $quoteDiscount = QuoteDiscount::create($dataDiscount);
+
+        // Guardar la actualizacion
+        $quoteUpdate = $quote->quotesUpdate()->create([
+            'quote_information_id' => $quoteInfo->id,
+            'quote_discount_id' => $quoteDiscount->id,
+            'type' => "created"
+        ]);
 
         // Ligar Productos al update
 
@@ -327,60 +327,113 @@ class CotizadorController extends Controller
             $price_tecnica = $item->price_technique;
             $dataProduct['prices_techniques'] = $price_tecnica;
             $dataProduct['cantidad'] = $item->cantidad;
-            $dataProduct['costo_unitario'] = $item->costo_unitario;
-            $dataProduct['costo_total'] = $item->costo_total;
+            $dataProduct['precio_unitario'] = $item->precio_unitario;
+            $dataProduct['precio_total'] = $item->precio_total;
             $dataProduct['quote_by_scales'] = false;
             $dataProduct['scales_info'] = null;
-            array_push($quote['quoteProducts'], $dataProduct);
-        }
 
+            $quoteUpdate->quoteProducts()->create($dataProduct);
+        }
 
         // Buscar usuarios con el rol de vendedor y gerente de compras
         $users = User::whereHas('roles', function ($query) {
             $query->whereIn('name', ['buyers-manager', 'seller']);
         })->get();
-        /* foreach ($users as $user) {
+
+        foreach ($users as $user) {
             // Enviar notificacion a los usuarios con el rol de vendedor y gerente de compras
             $user->notify(new PurchaseMadeNotification(auth()->user()->name));
-        }*/
-
-        $datosToSend = [
-            "email" => auth()->user()->email,
-            "token" => auth()->user()->punchoutSession->token,
-            "total_cost" => 0,
-            "total_cost_with_iva" => 0,
-            "total_price" => 0,
-            "total_price_with_iva" => 0,
-            "currency" => "MXN",
-            "products" => []
-        ];
-
-        foreach ($currentSale->currentQuoteDetails as $currentQuote) {
-            $data["supplier_part_id"] = $currentQuote->product->internal_sku;
-            $data["description"] = $currentQuote->product->description;
-            $data["unit_cost"] = (float) $currentQuote->costo_unitario;
-            $data["unit_cost_with_iva"] = round($data["unit_cost"] * 1.16, 2);
-            $data["unit_price"] = round(($currentQuote->costo_unitario / ((100 - config("settings.utility_aditional")) / 100)));
-            $data["unit_price_with_iva"] = round($data["unit_price"] * 1.16, 2);
-            $data["quantity"] = $currentQuote->cantidad;
-            $data["quantity"] = $currentQuote->cantidad;
-            $data['print_customization_id'] = 1;
-            $data['url_image'] = $currentQuote->logo ? asset('storage/logos/' . $currentQuote->logo) : '';
-            array_push($datosToSend["products"], $data);
-
-            $datosToSend["total_cost"] += ($data["unit_cost"] * $data["quantity"]);
-            $datosToSend["total_cost_with_iva"] += ($data["unit_cost_with_iva"] * $data["quantity"]);
-            $datosToSend["total_price"] += ($data["unit_price"] * $data["quantity"]);
-            $datosToSend["total_price_with_iva"] += ($data["unit_price_with_iva"] * $data["quantity"]);
         }
 
-        $url = config("settings.url_post_cart");
-        $datosToSendString = json_encode($datosToSend);
 
-        // Eliminar carrito
+
+
+        // Crear un nuevo objeto SimpleXMLElement
+        $xml = new SimpleXMLElement('<!DOCTYPE cXML SYSTEM "http://xml.cxml.org/schemas/cXML/1.2.014/cXML.dtd"><cXML></cXML>');
+
+        // Agregar atributos al elemento cXML
+        $xml->addAttribute('payloadID', '1686259207.6514087@stg791app53.int.coupahost.com');
+        $xml->addAttribute('xml:lang', 'en-US');
+        $xml->addAttribute('timestamp', now());
+        $xml->addAttribute('version', '1.2.0.14');
+
+        // Agregar el elemento Header
+        $header = $xml->addChild('Header');
+
+        // Agregar el elemento From dentro de Header
+        $from = $header->addChild('From');
+        $fromCredential = $from->addChild('Credential');
+        $fromCredential->addAttribute('domain', 'NetworkID');
+        $fromCredential->addChild('Identity', auth()->user()->email);
+
+        // Agregar el elemento To dentro de Header
+        $to = $header->addChild('To');
+        $toCredential = $to->addChild('Credential');
+        $toCredential->addAttribute('domain', 'NetworkId');
+        $toCredential->addChild('Identity', auth()->user()->email);
+
+        // Agregar el elemento Sender dentro de Header
+        $sender = $header->addChild('Sender');
+        $senderCredential = $sender->addChild('Credential');
+        $senderCredential->addAttribute('domain', 'NetworkID');
+        $senderCredential->addChild('Identity', auth()->user()->email);
+        $senderCredential->addChild('SharedSecret', auth()->user()->punchoutSession->sharesecret);
+        $sender->addChild('UserAgent', 'bhtrade');
+
+        // Agregar el elemento Message
+        $message = $xml->addChild('Message');
+        // Agregar el elemento PunchOutOrderMessage dentro de Message
+        $punchOutOrderMessage = $message->addChild('PunchOutOrderMessage');
+        $punchOutOrderMessage->addChild('BuyerCookie', auth()->user()->punchoutSession->cookie);
+        // Agregar el elemento PunchOutOrderMessageHeader dentro de PunchOutOrderMessage
+        $punchOutOrderMessageHeader = $punchOutOrderMessage->addChild('PunchOutOrderMessageHeader');
+        $punchOutOrderMessageHeader->addAttribute('operationAllowed', 'edit');
+
+        // Agregar el elemento Total dentro de PunchOutOrderMessageHeader
+        $total = $punchOutOrderMessageHeader->addChild('Total');
+        $money = $total->addChild('Money', $currentSale->currentQuoteDetails->sum('precio_total'));
+        $money->addAttribute('currency', 'MXN');
+        foreach ($currentSale->currentQuoteDetails as $currentQuote) {
+            // Agregar el elemento ItemIn dentro de PunchOutOrderMessage
+            $itemIn = $punchOutOrderMessage->addChild('ItemIn');
+            $itemIn->addAttribute('quantity', $currentQuote->cantidad);
+
+            // Agregar el elemento ItemID dentro de ItemIn
+            $itemID = $itemIn->addChild('ItemID');
+            $itemID->addChild('SupplierPartID', $currentQuote->product->internal_sku);
+
+            // Agregar el elemento ItemDetail dentro de ItemIn
+            $itemDetail = $itemIn->addChild('ItemDetail');
+            $unitPrice = $itemDetail->addChild('UnitPrice');
+            $money = $unitPrice->addChild('Money', $currentQuote->precio_unitario);
+            $money->addAttribute('currency', 'MXN');
+            $itemDetail->addChild('Description', $currentQuote->product->description)->addAttribute('xml:lang', 'en-US');
+            $itemDetail->addChild('UnitOfMeasure', 'PZ');
+            $itemDetail->addChild('Classification', '80141605')->addAttribute('domain', 'UNSPSC');
+        }
+
+        $xmlString = $xml->asXML();
+        $cXMLString = str_replace("lang=", "xml:lang=", $xmlString);
+
+
+        $url = 'https://grupoherdez-test.coupahost.com/punchout/checkout?id=11';
+
+        // Eliminar los datos del carrito
         auth()->user()->currentQuote->currentQuoteDetails()->delete();
         auth()->user()->currentQuote()->delete();
 
-        return view('pages.catalogo.submitCoupa', compact('url', 'datosToSendString'));
+        return view('pages.catalogo.submitCoupa', compact('url', 'cXMLString'));
+    }
+
+    public function misCotizaciones()
+    {
+     
+        if(auth()->user()->hasRole( "buyers-manager")){
+            $quotes = Quote::simplePaginate(10);
+        }else{
+            $quotes =  auth()->user()->quotes()->simplePaginate(10);
+        }
+    
+        return view('pages.catalogo.misCotizaciones', compact('quotes'));
     }
 }

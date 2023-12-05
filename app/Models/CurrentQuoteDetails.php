@@ -18,8 +18,8 @@ class CurrentQuoteDetails extends Model
         'color_logos',
         'dias_entrega',
         'cantidad',
-        'costo_unitario',
-        'costo_total',
+        'precio_unitario',
+        'precio_total',
         'logo'
     ];
 

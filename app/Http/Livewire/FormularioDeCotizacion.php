@@ -247,8 +247,8 @@ class FormularioDeCotizacion extends Component
             'color_logos' => $this->colores,
             'dias_entrega' => $this->entrega,
             'cantidad' => $this->cantidad,
-            'costo_unitario' => $this->costoCalculado,
-            'costo_total' => $this->costoTotal,
+            'precio_unitario' => $this->costoCalculado,
+            'precio_total' => $this->costoTotal,
             'logo' => $imageName
         ];
 

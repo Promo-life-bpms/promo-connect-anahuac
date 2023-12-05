@@ -21,8 +21,8 @@ class CreateCurrentQuotesDetailsTable extends Migration
             $table->integer('color_logos');
             $table->integer('dias_entrega');
             $table->integer('cantidad')->nullable();
-            $table->decimal('costo_unitario', 8, 2)->nullable();
-            $table->decimal('costo_total', 12, 2)->nullable();
+            $table->decimal('precio_unitario', 8, 2)->nullable();
+            $table->decimal('precio_total', 12, 2)->nullable();
             $table->string('logo')->nullable();
             $table->timestamps();
         });
