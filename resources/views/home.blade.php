@@ -64,9 +64,8 @@
         <div class="container mx-auto max-w-7xl py-8 bg-white">
             <div class="flex flex-wrap justify-between">
                 @foreach ($latestProducts as $product)
-                    <a href="{{ route('show.product', ['product' => $product->id]) }}" class="max-h-40 w-auto text-center overflow-hidden" style="border: solid 2px orange !important;">
-                        <img src="{{ isset( $product->firstImage->image_url)? $product->firstImage->image_url: asset('/img/default.jpg') }}" alt="" srcset=""
-                            class="max-h-40 w-auto overflow-hidden ">
+                    <a href="{{ route('show.product', ['product' => $product->id]) }}" class="flex items-center justify-center text-center overflow-hidden" style="border: solid 2px orange !important; width: 180px; height: 180px;">
+                        <img src="{{ isset($product->firstImage->image_url) ? $product->firstImage->image_url : asset('/img/default.jpg') }}" alt="" srcset="" class="max-h-40 w-auto overflow-hidden">
                     </a>
                 @endforeach
             </div>
@@ -116,10 +115,9 @@
                     <div>
                         <div
                             class="border border-primary  bg-slate-50 hover:bg-slate-100 transition-colors rounded-full shadow-lg w-40 h-40 flex justify-center items-center text-center cursor-pointer">
-                            <a href="{{ route('categoryfilter', ['category' => $cat->id]) }}"
-                                class="bg-[#161B2F] font-bold text-white uppercase text-sm px-3 py-2 w-4/5">
-                                {{ $cat->family }}
-                            </a>
+                                <a href="{{ route('show.product', ['product' => $product->id]) }}" class="flex items-center justify-center max-h-40 w-auto text-center overflow-hidden" style="border: solid 2px orange !important;">
+                                    <img src="{{ $product->firstImage->image_url }}" alt="" srcset="" class="h-40 w-40 object-cover">
+                                </a>
                         </div>
                     </div>
                 @endforeach --}}
@@ -141,7 +139,7 @@
                         <a href="{{ route('show.product', ['product' => $product->id]) }}" 
                             class="max-h-40 w-auto text-center overflow-hidden" style="border: solid 2px orange !important;">
                             <img src="{{ $product->firstImage->image_url }}" alt="" srcset=""
-                                class="h-40 w-40 ">
+                                class="h-40 w-40 " style="object-fit: scale-down;">
                         </a>
                     @else
                         <img src="{{ asset('/img/default.jpg') }}" alt="" srcset="" class="max-h-40 w-auto">
