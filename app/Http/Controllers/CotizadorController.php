@@ -46,13 +46,19 @@ class CotizadorController extends Controller
         // Obtener los banner visibles, del primero al último
         $banners = Banner::where('visible', true)->orderBy('created_at', 'desc')->get();
 
-        $latestProducts = Product::limit(6)->get();
+        $latestProducts = Product::where('provider_id', '1982')
+            ->orderBy('created_at', 'desc') 
+            ->limit(6) 
+            ->get();
+
         $latestCategorias = Category::withCount('productCategories')
             ->orderBy('product_categories_count', 'DESC')
             ->where('family', 'not like', '%textil%')
             ->limit(6)
             ->get();
-        $moreProducts = Product::whereIn('id', $valores)->get();
+        $moreProducts = Product::where('provider_id', '1982')
+            ->take(6) 
+            ->get();
         return view('home', compact('latestProducts', 'latestCategorias', 'moreProducts', 'banners'));
     }
 
