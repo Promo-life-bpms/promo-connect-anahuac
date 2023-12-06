@@ -98,7 +98,7 @@
             <p  class="text-center m-2 font-bold text-xl">ó</p> -->
          
             <button class="w-full col-span-5 px-10 py-3 bg-gray-900 hover:bg-gray-900 text-stone-50"
-                data-modal-target="modalPersonalize" data-modal-toggle="modalPersonalize" type="button">
+                data-modal-target="modalPersonalize" data-modal-toggle="modalPersonalize" type="button" style='display:none;'>
                 Personaliza tu producto
             </button>
             <br>
