@@ -1,6 +1,6 @@
 @component('mail::message')
 
-# Cotizacion BH
+# Cotizacion 
 
 ---
 

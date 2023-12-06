@@ -73,29 +73,24 @@
         <div style="width: 100%; height:1px; background-color:black; margin-top:8px; "></div>
         
         @foreach($quotes as $quote)
-           @php
-                try {
-                    if ($quote->logo != null) {
-                        $logo = public_path('/storage/logos/' . $quote->logo);
-                        $image64 = base64_encode(file_get_contents($logo));
-                    } else {
-                        $logo = public_path('img/default.jpg');
-                        $image64 = base64_encode(file_get_contents($logo));
-                    }
-                } catch (\Exception $e) {
-                    $logo = public_path('img/default.jpg');
-                    $image64 = base64_encode(file_get_contents($logo));
-                }
+            
+            @php
+                
+                $quoteTechnique = optional(\App\Models\QuoteTechniques::where('quotes_id', $quote->id)->latest()->first());
 
-                $quoteTechnique = \App\Models\QuoteTechniques::where('quotes_id',$quote->id)->get()->last();
+                $product = optional(\App\Models\QuoteProducts::where('id', $quote->id)->latest()->first());
 
-                $product = \App\Models\QuoteProducts::where('id', $quote->id)->get()->last();
                 $productData = json_decode($product->product);
 
-                $productName = isset($productData->name) ? $productData->name : 'Nombre no disponible';
+                $productImage = \App\Models\Catalogo\Image::where('product_id', $productData->id)->get()->first();
+
+                $productName = optional($productData)->name ?? 'Nombre no disponible';
                 
-                    
-                @endphp
+                $logo = $productImage->image_url;
+
+                $image64 = base64_encode(file_get_contents($logo));
+
+            @endphp
 
                 <br>
                 <p style="margin-left:60px;">Cotizacion: <b>SQ-{{ $quote->id }}</b></p>
@@ -103,11 +98,12 @@
                 <table border="1" >
                     <tr>
                         <th style="width:30%" >Imagen de Referencia</th>
-                        <th style="width:70%" colspan="3">Descripción </th>
+                        <th style="width:70%" colspan="3">Descripción 
+                    </th>
                     </tr>
                     <tr>
                         <td rowspan="6" style="width:30%"> 
-                            <center><img style="width:200px;  object-fit:contain;" src="data:image/png;base64,{{$image64}}" alt=""></center>
+                            <center><img style="width:200px; height:240px; object-fit:contain;" src="data:image/png;base64,{{$image64}}" alt=""></center>
                         </td>
                         <td colspan="3" style="width:70%; padding:2px;">{{ $productName }}</td>
                         
