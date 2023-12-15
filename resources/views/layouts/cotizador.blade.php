@@ -7,11 +7,12 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico')}}">
 
     <title>
         @hasSection('title')
             @yield('title') |
-        @endif {{ config('app.name', 'Laravel') }}
+        @endif {{ config('app.name', 'Anahuac') }}
     </title>
 
     <!-- Fonts -->
