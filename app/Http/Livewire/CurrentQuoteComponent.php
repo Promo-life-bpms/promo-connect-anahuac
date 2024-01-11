@@ -278,9 +278,9 @@ class CurrentQuoteComponent extends Component
         
         $quotes = Quote::whereIn('id', $quoteCotizationNumber)->get();
 
-        $correoDestino = 'fsolano.fs69@gmail.com';
+        /* $correoDestino = 'fsolano.fs69@gmail.com';
         Notification::route('mail', $correoDestino)
-        ->notify(new SendEmailCotizationNotification($date, $quotes ));
+        ->notify(new SendEmailCotizationNotification($date, $quotes )); */
 
         $pdf = \PDF::loadView('pages.pdf.quoteBH', ['date' => $date, 'quotes' => $quotes]);
      
