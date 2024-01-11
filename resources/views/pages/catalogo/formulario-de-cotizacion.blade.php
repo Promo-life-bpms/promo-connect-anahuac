@@ -4,7 +4,7 @@
     <p class="w-100 py-2"><strong>Personalizacion de la tecnica</strong></p>
     <div class="">
         <div class="rounded">
-            <div class="grid grid-cols-2">
+            <div class="grid grid-cols-2"  style="display: none;">
                 <div class="m-0 mb-1 col-span-1">
                     <label for="tecnica" class="text-dark m-0"><strong>Material</strong> </label>
                     <select name="" id=""

@@ -206,11 +206,11 @@ class FormularioDeCotizacion extends Component
     {
         $user = Auth::user();
 
-        $this->validate([
+        /* $this->validate([
             'priceTechnique' => 'required',
             'cantidad' => 'required|numeric|min:1',
             'colores' => 'required|numeric|min:0',
-        ]);
+        ]); */
 
         $temporalImage = TemporalImageUrl::where('product_id', $this->product->id)->where('type', 'no used')->where('user_id', $user->id)->get()->last();
 
