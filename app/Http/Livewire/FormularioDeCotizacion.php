@@ -88,11 +88,40 @@ class FormularioDeCotizacion extends Component
 
         $utilidad = (float) config('settings.utility');
         $priceProduct = $this->product->price;
-        if ($this->product->producto_promocion) {
+
+        $productType = $this->product->productAttributes->where('attribute', 'Tipo Descuento')->first();
+
+        if ($productType && $productType->value == 'Normal') {
+            $priceProduct = round($priceProduct - $priceProduct * (30 / 100), 2);
+        } else if ($productType && ($productType->value == 'Outlet' || $productType->value == 'Unico')) {
+            $priceProduct = round($priceProduct - $priceProduct * (0 / 100), 2);
+        } else {
+            if ($this->product->producto_promocion) {
+                $priceProduct = round($priceProduct - $priceProduct * ($this->product->descuento / 100), 2);
+            } else {
+
+                $priceProduct = round($priceProduct - $priceProduct *  ($this->product->provider->discount / 100), 2);
+            }
+            if ($this->product->provider->company == 'EuroCotton') {
+                $iva = $priceProduct * 0.16;
+                $priceProduct = round($priceProduct - $iva, 2);
+            }
+
+            if ($this->product->provider->company  == 'For Promotional') {
+
+                if ($this->product->descuento >= $this->product->provider->discount) {
+                    $priceProduct = round($this->product->price - $this->product->price * ($this->product->descuento / 100), 2);
+                } else {
+                    $priceProduct = round($this->product->price - $this->product->price * (25 / 100), 2);
+                }
+            }
+        }
+        
+        /*   if ($this->product->producto_promocion) {
             $priceProduct = round($priceProduct - $priceProduct * ($this->product->descuento / 100), 2);
         } else {
             $priceProduct = round($priceProduct - $priceProduct * ($this->product->provider->discount / 100), 2);
-        }
+        } */
         $this->precio = round($priceProduct / ((100 - $utilidad) / 100), 2);
         $this->precioCalculado = $this->precio;
     }

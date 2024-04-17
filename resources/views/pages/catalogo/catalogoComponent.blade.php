@@ -20,7 +20,7 @@
 
     <div class="container mx-auto max-w-6xl px-2">
         <div class="flex justify-center items-center mt-8 mb-8">
-            <img src="{{ asset('img/catalogo.png')}}" alt="catalogo" style="width:30%;">
+            <img src="{{ asset('img/catalogo.png') }}" alt="catalogo" style="width:30%;">
         </div>
         <div id="accordion-collapse" data-accordion="collapse" wire:ignore>
             <h2 id="accordion-collapse-heading-3">
@@ -44,14 +44,14 @@
                             <div class="flex gap-1 items-center">
                                 <label for="name" class="text-slate-400 w-1/3">Nombre:</label>
                                 <input wire:model='nombre' type="text"
-                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="search" id="search"
-                                    placeholder="Nombre">
+                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="search"
+                                    id="search" placeholder="Nombre">
                             </div>
                             <div class="flex gap-1 items-center">
                                 <label for="color" class="text-slate-400 w-1/3">Color:</label>
                                 <input wire:model='color' type="text"
-                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="color" id="color"
-                                    placeholder="Color">
+                                    class="py-1 px-2 border border-slate-700 rounded w-full" name="color"
+                                    id="color" placeholder="Color">
                             </div>
                             <div class="flex gap-1 items-center">
                                 <label for="piezas" class="text-slate-400 w-1/3">Piezas:</label>
@@ -110,13 +110,52 @@
                             class="flex sm:block gap-2 sm:bg-transparent bg-white rounded-md sm:rounded-none p-2 sm:p-0">
                             @php
                                 $priceProduct = $row->price;
-                                if ($row->producto_promocion) {
+                                if ($product_type && $product_type->value == 'Normal') {
+                                    $priceProduct = round($priceProduct - $priceProduct * (30 / 100), 2);
+                                } elseif (
+                                    $product_type &&
+                                    ($product_type->value == 'Outlet' || $product_type->value == 'Unico')
+                                ) {
+                                    $priceProduct = round($priceProduct - $priceProduct * (0 / 100), 2);
+                                } else {
+                                    if ($row->producto_promocion) {
+                                        $priceProduct = round(
+                                            $priceProduct - $priceProduct * ($row->descuento / 100),
+                                            2,
+                                        );
+                                    } else {
+                                        $priceProduct = round(
+                                            $priceProduct - $priceProduct * ($row->provider->discount / 100),
+                                            2,
+                                        );
+                                    }
+                                    if ($row->provider->company == 'EuroCotton') {
+                                        $priceProduct = round(
+                                            $priceProduct - $priceProduct * ($row->provider->discount / 100),
+                                            2,
+                                        );
+                                        $iva = $priceProduct * 0.16;
+                                        $priceProduct = round($priceProduct - $iva, 2);
+                                    }
+
+                                    if ($row->provider->company == 'For Promotional') {
+                                        if ($row->descuento >= $row->provider->discount) {
+                                            $priceProduct = round(
+                                                $row->price - $row->price * ($row->descuento / 100),
+                                                2,
+                                            );
+                                        } else {
+                                            $priceProduct = round($row->price - $row->price * (25 / 100), 2);
+                                        }
+                                    }
+                                }
+                                /*    if ($row->producto_promocion) {
                                     $priceProduct = round($priceProduct - $priceProduct * ($row->descuento / 100), 2);
                                 } else {
                                     $priceProduct = round($priceProduct - $priceProduct * ($row->provider->discount / 100), 2);
                                 }
                                 $priceProduct = round($priceProduct / ((100 - $utilidad) / 100), 2);
-                                $priceProduct = round($priceProduct / ((100 - config('settings.utility_aditional')) / 100), 2);
+                                $priceProduct = round($priceProduct / ((100 - config('settings.utility_aditional')) / 100), 2); */
                             @endphp
                             <div class="w-full flex justify-center  sm:p-5 sm:bg-white  text-center">
                                 <div class="">
