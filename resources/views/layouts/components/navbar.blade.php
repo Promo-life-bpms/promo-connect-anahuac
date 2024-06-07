@@ -3,8 +3,8 @@
     <nav class="w-full flex justify-between py-2 px-12 items-center flex-wrap md:flex-nowrap px-3 md:py-1 bg-white" >
         <div class="w-3/12">
             <a href="{{ route('index') }}">
-                <img src="{{asset('img/logo-anahuac.png')}}"
-                    style="object-fit: cover;"
+                <img src="{{asset('img/Astore.png')}}"
+                    style="object-fit: cover; width:180px;"
                     alt="logo" class="w-24 p-2 ml-12">
             </a>
         </div>
@@ -72,7 +72,7 @@
             <div class="flex justify-around">
                 <div>
                     @if (auth()->user())
-                        <div class="text-black mt-6">
+                        <div class="text-black mt-4">
                             <div class="flex">
                                 <button id="dropdownHoverButton" data-dropdown-toggle="dropdown"
                                     class="text-primary hover:text-primary focus:ring-4 focus:outline-none p-1 font-medium focus:rounded text-lg text-center inline-flex items-center"
@@ -91,12 +91,12 @@
                     @endif
                 </div>
                 <div>
-                    <p class="mt-8 text-lg text-orange-500 font-semibold"><a href="{{ route('compras') }}">MIS COMPRAS</a></p>
+                    <p class="text-lg text-orange-500 font-semibold" style="margin-top:21px; "><a href="{{ route('compras') }}">MIS COMPRAS</a></p>
                     
                 </div>
                 <div class="flex">
                     @role(['buyers-manager', 'buyer'])
-                        <a class="text-primary hover:text-primary mt-6" href="{{ route('catalogo') }}">
+                        <a class="text-primary hover:text-primary mt-4" href="{{ route('catalogo') }}">
                             <div class="mt-1">
                                 <svg width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 
@@ -385,7 +385,6 @@
                     <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">CATÁLOGO </p></a>
                     <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">MEJORES DESCUENTOS</p></a>
                     <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">RECIÉN LLEGADO</p></a>
-                    <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p></a>
                     <a href="{{ route('catalogo')}}"><p class="text-white mt-5 font-bold">MEJOR CALIFICADO</p></a>
                 </div>
             </div>

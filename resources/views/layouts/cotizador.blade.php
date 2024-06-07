@@ -79,6 +79,9 @@
                     <p class="ml-4 mr-4 mt-6 text-black">Términos y condiciones</p>
 
                 </div>
+                <div>
+                    <img src="{{ asset('img/RUA.png') }}" alt="" style="width: 260px;" class="-mt-10">
+                </div>
                 <div class="flex flex-col items-end">
                     <a href="#" class="ml-4 mr-8" onclick="scrollToFirstSection()">
                         <svg width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="up-circle">
